@@ -654,22 +654,22 @@ class Controller(Application):
                     if not self.model.playlistExistsInDatabase(playlist.name):
                         self.model.addPlaylistToDatabase(playlistChild.text)
 
-                if playlistChild.tag == 'Shuffle':
+                elif playlistChild.tag == 'Shuffle':
                     playlist.shuffle = (playlistChild.text == 'true')
                 if playlistChild.tag == 'Fader':
                     for faderChild in playlistChild.getchildren():
                         if faderChild.tag == 'FadeInDurationSecs':
                             playlist.fadeInSecs = faderChild.text
-                        if faderChild.tag == 'FadeOutDurationSecs':
+                        elif faderChild.tag == 'FadeOutDurationSecs':
                             playlist.fadeOutSecs = faderChild.text
-                        if faderChild.tag == 'MinLevel':
-                            playlist.minLevel = faderChild.text
-                        if faderChild.tag == 'MaxLevel':
+                        elif faderChild.tag == 'MaxLevel':
                             playlist.maxLevel = faderChild.text
-                if playlistChild.tag == 'SchedIntervalMins':
-                    playlist.schedIntervalMins = playlistChild.text
-                if playlistChild.tag == 'NumSchedItems':
+                        elif faderChild.tag == 'MinLevel':
+                            playlist.minLevel = faderChild.text
+                elif playlistChild.tag == 'NumSchedItems':
                     playlist.numSchedItems = playlistChild.text
+                elif playlistChild.tag == 'SchedIntervalMins':
+                    playlist.schedIntervalMins = playlistChild.text
             self.model.addPlaylistToZone(zoneName, playlist)
 
         def exportXML(self, outputXmlPath, updateProgressBar, destroyProgressBar):
